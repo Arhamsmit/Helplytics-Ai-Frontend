@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../axios';
 
 const ExplorePage = () => {
   const [activeTab, setActiveTab] = useState('All');
@@ -14,7 +14,7 @@ const ExplorePage = () => {
       setLoading(true);
       try {
         const categoryParam = activeTab === 'All' ? '' : `?category=${activeTab}`;
-        const { data } = await axios.get(`http://localhost:5000/api/requests${categoryParam}`);
+        const { data } = await axios.get(`/api/requests${categoryParam}`);
         setRequests(data);
       } catch (error) {
         console.error('Fetching requests failed', error);

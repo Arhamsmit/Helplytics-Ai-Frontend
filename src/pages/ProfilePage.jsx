@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../axios';
 
 const ProfilePage = () => {
     const [user, setUser] = useState(null);
@@ -12,7 +12,7 @@ const ProfilePage = () => {
                 if (!userInfo || !userInfo.token) return;
 
                 const config = { headers: { Authorization: `Bearer ${userInfo.token}` } };
-                const { data } = await axios.get('http://localhost:5000/api/users/profile', config);
+                const { data } = await axios.get('/api/users/profile', config);
                 setUser(data);
             } catch (error) {
                 console.error("Failed to fetch user profile", error);

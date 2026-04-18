@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axios from '../axios';
 
 const AuthPage = () => {
     const [isLogin, setIsLogin] = useState(true);
@@ -18,7 +18,7 @@ const AuthPage = () => {
             const endpoint = isLogin ? '/api/users/login' : '/api/users';
             const payload = isLogin ? { email, password } : { name, email, password };
             
-            const { data } = await axios.post(`http://localhost:5000${endpoint}`, payload, {
+            const { data } = await axios.post(`${endpoint}`, payload, {
                 headers: { 'Content-Type': 'application/json' }
             });
 

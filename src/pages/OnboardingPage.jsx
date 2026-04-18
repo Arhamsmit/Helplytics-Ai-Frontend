@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axios from '../axios';
 
 const OnboardingPage = () => {
     const [step, setStep] = useState(1);
@@ -41,7 +41,7 @@ const OnboardingPage = () => {
             };
 
             const { data } = await axios.put(
-                'http://localhost:5000/api/users/profile',
+                '/api/users/profile',
                 { role, skills, location, bio, onboardingComplete: true },
                 config
             );

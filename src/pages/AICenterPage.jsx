@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../axios';
 
 const AICenterPage = () => {
   const [requests, setRequests] = useState([]);
@@ -9,8 +9,8 @@ const AICenterPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const reqRes = await axios.get('http://localhost:5000/api/requests');
-        const userRes = await axios.get('http://localhost:5000/api/leaderboard');
+        const reqRes = await axios.get('/api/requests');
+        const userRes = await axios.get('/api/leaderboard');
         setRequests(reqRes.data);
         setUsers(userRes.data);
       } catch (error) {

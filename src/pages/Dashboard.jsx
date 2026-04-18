@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import axios from '../axios';
 
 const Dashboard = () => {
     const [requests, setRequests] = useState([]);
@@ -23,14 +23,14 @@ const Dashboard = () => {
                 
                 // Fetch parallel requests for speed
                 const [reqRes, leadRes] = await Promise.all([
-                    axios.get('http://localhost:5000/api/requests'),
-                    axios.get('http://localhost:5000/api/leaderboard')
+                    axios.get('/api/requests'),
+                    axios.get('/api/leaderboard')
                 ]);
 
                 let notifData = [];
                 if (userInfo.token) {
                     try {
-                        const notifRes = await axios.get('http://localhost:5000/api/notifications', config);
+                        const notifRes = await axios.get('/api/notifications', config);
                         notifData = notifRes.data;
                     } catch (e) { console.warn("Failed to fetch notifications"); }
                 }

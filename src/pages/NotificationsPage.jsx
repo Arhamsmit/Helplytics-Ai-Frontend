@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../axios';
 
 const NotificationsPage = () => {
     const [notifications, setNotifications] = useState([]);
@@ -12,7 +12,7 @@ const NotificationsPage = () => {
                 if (!userInfo || !userInfo.token) return;
 
                 const config = { headers: { Authorization: `Bearer ${userInfo.token}` } };
-                const { data } = await axios.get('http://localhost:5000/api/notifications', config);
+                const { data } = await axios.get('/api/notifications', config);
                 setNotifications(data);
             } catch (error) {
                 console.error("Failed to fetch notifications", error);
@@ -28,7 +28,7 @@ const NotificationsPage = () => {
         try {
             const userInfo = JSON.parse(localStorage.getItem('userInfo'));
             const config = { headers: { Authorization: `Bearer ${userInfo.token}` } };
-            await axios.put(`http://localhost:5000/api/notifications/${id}`, {}, config);
+            await axios.put(`/api/notifications/${id}`, {}, config);
             
             setNotifications(notifications.map(n => 
                 n._id === id ? { ...n, read: true } : n

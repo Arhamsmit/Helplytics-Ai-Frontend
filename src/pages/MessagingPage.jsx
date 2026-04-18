@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../axios';
 
 const MessagingPage = () => {
     const [chats, setChats] = useState([]);
@@ -14,7 +14,7 @@ const MessagingPage = () => {
             if (!userInfo.token) return;
             try {
                 const config = { headers: { Authorization: `Bearer ${userInfo.token}` } };
-                const { data } = await axios.get('http://localhost:5000/api/messages/conversations', config);
+                const { data } = await axios.get('/api/messages/conversations', config);
                 setChats(data);
                 if (data.length > 0) setSelectedUser(data[0].id);
             } catch (error) {
@@ -29,7 +29,7 @@ const MessagingPage = () => {
         const fetchMessages = async () => {
             try {
                 const config = { headers: { Authorization: `Bearer ${userInfo.token}` } };
-                const { data } = await axios.get(`http://localhost:5000/api/messages/${selectedUser}`, config);
+                const { data } = await axios.get(`/api/messages/${selectedUser}`, config);
                 setMessages(data);
             } catch (error) {
                 console.error("Failed to fetch messages", error);
@@ -45,7 +45,7 @@ const MessagingPage = () => {
         try {
             const config = { headers: { Authorization: `Bearer ${userInfo.token}` } };
             const { data } = await axios.post(
-                'http://localhost:5000/api/messages', 
+                '/api/messages', 
                 { receiverId: selectedUser, content: newMessage }, 
                 config
             );
@@ -53,7 +53,7 @@ const MessagingPage = () => {
             setNewMessage('');
             
             // Re-fetch conversations to keep sidebar fresh
-            const convRes = await axios.get('http://localhost:5000/api/messages/conversations', config);
+            const convRes = await axios.get('/api/messages/conversations', config);
             setChats(convRes.data);
             
         } catch (error) {
